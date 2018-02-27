@@ -13,7 +13,7 @@ import SpecificTask from '../screens/SpecificTask'
 import CalendarScreen from '../screens/CalendarScreen'
 import AddTaskForm from '../screens/AddTaskForm'
 
-export const Stack = StackNavigator({           // Potrzebujemy zaimplementowac 
+export const Stack = StackNavigator({           // Potrzebujemy zaimplementowac
   'MainActivity': { screen: MainActivity },     //
   'SpecificTask': { screen: SpecificTask },
   'AddTaskForm': { screen: AddTaskForm },
@@ -21,16 +21,23 @@ export const Stack = StackNavigator({           // Potrzebujemy zaimplementowac
   'TasksPerformed': { screen: TasksPerformed },
   'FutureTasks': { screen: FutureTasks },
   'LongTermTasks': { screen: LongTermTasks },
-  'CalendarScreen': { screen: CalendarScreen }
+  'CalendarScreen': { screen: CalendarScreen },
 }, {
   initialRouteName: 'MainActivity'
+})
+
+export const ActiveTasksStack = StackNavigator({
+  'ActiveTasks': { screen: ActiveTasks },
+  'SpecificTask': { screen: SpecificTask },
+}, {
+  initialRouteName: 'ActiveTasks'
 })
 
 export const Drawer = DrawerNavigator({
   'Główna': { screen: Stack },
   'Adres API': { screen: APIAddress },
   'Logowanie': { screen: LogInScreen },
-  'Aktywne zadania': { screen: ActiveTasks },
+  'Aktywne zadania': { screen: ActiveTasksStack },
   'Wykonane zadania': { screen: TasksPerformed },
   'Przyszłe zadania': { screen: FutureTasks },
   'Długoterminowe': { screen: LongTermTasks },

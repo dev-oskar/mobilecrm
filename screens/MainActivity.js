@@ -19,8 +19,8 @@ export default class MainActivity extends React.Component {
     }
   }
   render(){
+    const name = 'Oskar'
     const { navigation } = this.props.navigation;
-    console.info('This props navigation: ' + this.props.navigation)
 
     return(
     <View style={styles.container}>
@@ -31,6 +31,7 @@ export default class MainActivity extends React.Component {
         </View>
 
         <View style={styles.mainContent}>
+            <Text style={styles.mainHello}>Witaj, { name }</Text>
             <Text style={styles.mainString}>Ilość zadań aktywnych: 0</Text>
             <Text style={styles.mainString}>Ilość zadań wykonanych: 0</Text>
         </View>

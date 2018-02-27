@@ -9,7 +9,7 @@ export default class MainActivity extends React.Component {
     tapBarLabel: 'Długoterminowe zadania',
     drawerIcon: ({tintColor}) => {
       return(
-        <FontAwesome style={{color: tintColor, fontSize: 20}}>{Icons.calendar}</FontAwesome>
+        <FontAwesome style={{color: tintColor, fontSize: 20}}>{Icons.calendarO}</FontAwesome>
       )
     }
   }

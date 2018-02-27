@@ -12,8 +12,8 @@ export default class AddTaskForm extends React.Component {
     super(props);
     this.state = {
       isLoading: true, // Wartość ta ustawiona na true pozwala nam wykonać jakieś działanie podczas ładowania danych.
-      userAssigned: '', // Użytkownik przydzielony do zadania
-      priority: '', // Priorytet zadania
+      userAssigned: 'Dla kogo:', // Użytkownik przydzielony do zadania
+      priority: '1', // Priorytet zadania
       date: '',
       data: '',
       title: '',
@@ -46,11 +46,13 @@ export default class AddTaskForm extends React.Component {
     tapBarLabel: 'Wykonane zadania',
     drawerIcon: ({tintColor}) => {
       return(
-        <FontAwesome style={{color: tintColor, fontSize: 20}}>{Icons.plus}</FontAwesome>
+         <FontAwesome style={{color: tintColor, fontSize: 20}}>{Icons.plus}</FontAwesome>
       )
     }
   }
   render(){
+  const { navigate } = this.props.navigation;
+
     if(this.state.isLoading){
       return(
         <View style={{flex: 1, position: 'absolute', bottom: '50%', alignSelf: 'center'}}>
@@ -58,8 +60,6 @@ export default class AddTaskForm extends React.Component {
         </View>
       );
     }
-
-
     return(
       <View style={styles.container}>
           <View style={styles.header}>
@@ -163,16 +163,11 @@ export default class AddTaskForm extends React.Component {
                   'Status',
                   'Dodawanie zadania powiodło się!',
                   [
-                    {text: 'Wróć', onPress: () => console.log('Back was pressed')},
-                    {text: 'Dodaj kolejne zadanie', onPress: () => {
-                      this.setState({title: '',})
-                      this.setState({taskContent: '',})
-                      this.setState({companyAssigned: '',})
-                      this.setState({priority: '',})
-                      this.setState({date: '',})
-                      this.setState({userAssigned: '',})
-                      console.log('Back was pressed')
+                    {text: 'Wróć', onPress: () => {
+                      console.log('Back was pressed');
+                      this.props.navigation.navigate('MainActivity');
                     }},
+                    {text: 'Przejdź do tego zadania', onPress: () => Alert.alert('Ta funkcja jest jeszcze niedostępna. Przepraszamy.')}
                   ],
                 )
               }}>

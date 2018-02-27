@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View, Button, Image, ActivityIndicator, ListView } from 'react-native';
+import { Text, View, Button, Image, ActivityIndicator, ListView, TouchableHighlight } from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import { StackNavigator } from 'react-navigation';
 
-import Row from '../styles/Row';
-import Header from '../styles/Header';
+import Header from '../components/Header';
 
 import styles from '../styles/main'; // Plik opisujacy wyglad poszczegolnych elementow.
 
@@ -43,6 +43,8 @@ export default class ActiveTasks extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props.navigation;
+
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, position: 'absolute', bottom: '50%', alignSelf: 'center'}}>
@@ -55,9 +57,13 @@ export default class ActiveTasks extends React.Component {
         <ListView
           style={styles.container}
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Row {...rowData}/>}
-          //renderSeparator={(sectionId, rowId) => <View style={styles.separator}></View>}
-          //renderHeader={() => <Header />}
+          renderRow={(rowData) =>
+            <TouchableHighlight style={styles.containerRow} onPress={() => this.props.navigation.navigate('SpecificTask', { taskId: rowData.id, taskTitle: rowData.temat })}>
+                <Text style={styles.textRow}>ID: {rowData.id}{"\n"}Temat:{rowData.temat}</Text>
+            </TouchableHighlight>
+          }
+          // renderSeparator={(sectionId, rowId) => <View style={styles.separator}></View>}
+          // renderHeader={() => <Header />}
         />
     );
   }

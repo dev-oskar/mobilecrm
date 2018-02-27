@@ -89,6 +89,9 @@ export default styles = StyleSheet.create({
         color: colours.fontColour,
         fontSize: 40,
         fontWeight: '100',
+        shadowOffset: {width: 25, height: 25},
+        shadowColor: colours.fontColour,
+        shadowOpacity: 300,
     },
     /* Sekcja APIAddress Start */
 
@@ -132,6 +135,12 @@ export default styles = StyleSheet.create({
         color: colours.fontColour,
         padding: 10,
         fontSize: 20,
+    },
+    mainHello:
+    {
+        color: colours.fontColour,
+        fontSize: 30,
+        padding: 10,
     },
 
     /* Sekcja MainActivity Koniec*/
@@ -206,4 +215,40 @@ export default styles = StyleSheet.create({
         fontSize: 18,
     },
     /* Sekcja AddTaskForm Koniec*/
+
+    /* Sekcja Row Start*/
+
+    containerRow:
+    {
+        flex: 1,
+        padding: 12,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: colours.second,
+        marginBottom: 10,
+    },
+    textRow:
+    {
+        marginLeft: 10,
+        fontSize: 16,
+        color: colours.fontColour,
+    },
+    specificTaskText:
+    {
+        fontSize: 16,
+        color: colours.fontColour,
+        padding: 10,
+    },
+    specificTaskTitle:
+    {
+        fontSize: 16,
+        color: colours.fontColour,
+    },
+    specificTaskCategory:
+    {
+        fontSize: 16,
+        color: colours.second,
+    }
+    /* Sekcja Row Koniec*/
 });

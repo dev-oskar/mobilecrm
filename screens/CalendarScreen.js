@@ -14,7 +14,7 @@ export default class CalendarScreen extends React.Component {
     tapBarLabel: 'Kalendarz',
     drawerIcon: ({tintColor}) => {
       return(
-        <FontAwesome style={{color: tintColor, fontSize: 20}}>{Icons.calendarTimes}</FontAwesome>
+        <FontAwesome style={{color: tintColor, fontSize: 20}}>{Icons.calendar}</FontAwesome>
       )
     }
   }
