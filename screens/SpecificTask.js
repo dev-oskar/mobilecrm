@@ -25,24 +25,21 @@ export default class SpecificTask extends React.Component {
   componentDidMount() {
     const taskID = this.props.navigation.state.params.taskId;
 
-     return fetch('https://crm.veeo.eu/json/zadania')
+     return fetch('https://crm.veeo.eu/json', {
+       method: 'POST',
+       body: JSON.stringify({
+         id: taskID,
+         action: "task"
+       })
+     })
        .then((response) => response.json())
        .then((responseJson) => {
+         console.log(responseJson)
          this.setState({
            isLoading: false,
            dataSource: responseJson,
          }, function() {
            // Tutaj możemy zrobić coś po załadowaniu.
-            Alert.alert('Id zadania do zaladowania: ' + taskID)
-            fetch('https://crm.veeo.eu/json', {
-              method: 'POST',
-              body: JSON.stringify({
-                id: taskID,
-                action: "task"
-              })
-            })
-            .then(res => res.json())
-            .then(json => console.log(json))
          });
        })
        .catch((error) => {
@@ -75,12 +72,12 @@ export default class SpecificTask extends React.Component {
       <View style={styles.container}>
           <View style={styles.AddTaskContent}>
               <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>ID:</Text> { taskId }</Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Temat:</Text></Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Treść zadania:</Text> </Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Przydzielono:</Text> </Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dnia:</Text> </Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dla:</Text> </Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Priorytet:</Text> </Text>
+              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Temat: </Text>{ this.state.dataSource.temat }</Text>
+              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Treść zadania:</Text> { this.state.dataSource.temat }</Text>
+              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Przydzielono:</Text>{ this.state.dataSource.temat } </Text>
+              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dnia:</Text> { this.state.dataSource.data }</Text>
+              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dla:</Text> { this.state.dataSource.temat }</Text>
+              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Priorytet:</Text>{ this.state.dataSource.temat } </Text>
           </View>
       </View>
     )}
