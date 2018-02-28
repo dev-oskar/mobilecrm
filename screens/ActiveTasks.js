@@ -16,6 +16,9 @@ export default class ActiveTasks extends React.Component {
     }
   }
   static navigationOptions = {
+    headerStyle: {backgroundColor: '#3399FF'},
+    headerTitleStyle: {color: '#fff'},
+    headerTintColor: '#fff',
     tapBarLabel: 'Do wykonania',
     drawerIcon: ({tintColor}) => {
       return(
@@ -58,8 +61,8 @@ export default class ActiveTasks extends React.Component {
           style={styles.container}
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            <TouchableHighlight style={styles.containerRow} onPress={() => this.props.navigation.navigate('SpecificTask', { taskId: rowData.id, taskTitle: rowData.temat })}>
-                <Text style={styles.textRow}>ID: {rowData.id}{"\n"}Temat:{rowData.temat}</Text>
+            <TouchableHighlight style={styles.containerRow} onPress={() => this.props.navigation.navigate('SpecificTask', { taskId: rowData.id, taskTitle: rowData.temat })} underlayColor='#3399FF'>
+                <Text style={styles.textRow}>{rowData.temat}{"\n"}<Text style={{color: 'lightslategrey'}}>{rowData.data}</Text></Text>
             </TouchableHighlight>
           }
           // renderSeparator={(sectionId, rowId) => <View style={styles.separator}></View>}

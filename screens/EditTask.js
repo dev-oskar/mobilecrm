@@ -41,7 +41,7 @@ export default class AddTaskForm extends React.Component {
    }
 
   static navigationOptions = {
-    title: 'Dodaj zadanie',
+    title: 'Edytuj zadanie',
     headerStyle: {backgroundColor: '#3399FF'},
     headerTitleStyle: {color: '#fff'},
     headerTintColor: '#fff',
@@ -54,6 +54,16 @@ export default class AddTaskForm extends React.Component {
   }
   render(){
   const { navigate } = this.props.navigation;
+  const taskId = this.props.navigation.state.params.taskId;
+  const taskTitle = this.props.navigation.state.params.taskTitle;
+  const taskContentBig = this.props.navigation.state.params.taskContent;
+  const taskFrom = this.props.navigation.state.params.taskFrom;
+  const taskDate = this.props.navigation.state.params.taskDate;
+  const taskUserAssigned = this.props.navigation.state.params.taskUserAssigned;
+  const taskPriority = this.props.navigation.state.params.taskPriority;
+
+
+
 
     if(this.state.isLoading){
       return(
@@ -72,6 +82,7 @@ export default class AddTaskForm extends React.Component {
                   autoCapitalize={'none'}
                   onChangeText={(text) => this.setState({title: text})}
                   underlineColorAndroid={'transparent'}
+                  defaultValue={ taskTitle }
               />
               <TextInput
                   style={styles.inputWhiteBig}
@@ -81,6 +92,7 @@ export default class AddTaskForm extends React.Component {
                   multiline={true}
                   onChangeText={(taskContent) => this.setState({taskContent: taskContent})}
                   underlineColorAndroid={'transparent'}
+                  defaultValue={ taskContentBig }
               />
               <TextInput
                   style={styles.inputWhite}
@@ -92,7 +104,7 @@ export default class AddTaskForm extends React.Component {
               />
               <View style={{backgroundColor: 'transparent', borderBottomWidth: 1, width: '80%', alignSelf: 'center', marginBottom: 10,}}>
                   <Picker
-                      selectedValue={this.state.priority}
+                      selectedValue={ taskPriority }
                       onValueChange={(itemValue, itemIndex) => this.setState({priority: itemValue})}
                       style={styles.addTaskPicker}
                       >
@@ -104,7 +116,7 @@ export default class AddTaskForm extends React.Component {
               <View style={{width: '80%', alignSelf: 'center', marginBottom: 10, borderBottomWidth: 1,}}>
                   <DatePicker
                       style={styles.datePicker}
-                      date={this.state.date}
+                      date={ taskDate }
                       mode='date'
                       placeholder='Wybierz datę'
                       format='DD-MM-YYYY'
@@ -130,7 +142,7 @@ export default class AddTaskForm extends React.Component {
               </View>
               <View style={{backgroundColor: 'transparent', borderBottomWidth: 1, width: '80%', alignSelf: 'center', marginBottom: 10,}}>
                   <Picker
-                      selectedValue={this.state.userAssigned}
+                      selectedValue={taskUserAssigned}
                       onValueChange={(itemValue, itemIndex) => this.setState({userAssigned: itemValue})}
                       style={styles.addTaskPicker}
                       >
@@ -170,7 +182,7 @@ export default class AddTaskForm extends React.Component {
                   ],
                 )
               }}>
-                  <Text style={styles.addTaskButtonText}>Dodaj <FontAwesome style={{color: '#fff', fontSize: 18}}>{Icons.plusCircle}</FontAwesome></Text>
+                  <Text style={styles.addTaskButtonText}>Zapisz <FontAwesome style={{color: '#fff', fontSize: 18}}>{Icons.pencil}</FontAwesome></Text>
               </TouchableHighlight>
           </View>
       </View>

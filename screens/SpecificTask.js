@@ -1,6 +1,9 @@
 import React from 'react';
-import { Text, View, Button, Image, ActivityIndicator, Alert } from 'react-native';
+import { Text, TextInput, View, Button, Image, ActivityIndicator, Alert, TouchableHighlight, ScrollView } from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import DatePicker from 'react-native-datepicker';
+
 
 import styles from '../styles/main' // Plik opisujacy wyglad poszczegolnych elementow.
 
@@ -19,6 +22,7 @@ export default class SpecificTask extends React.Component {
       title: '',
       taskContent: '',
       companyAssigned: '',
+      dataSource: '',
     }
   }
 
@@ -38,9 +42,7 @@ export default class SpecificTask extends React.Component {
          this.setState({
            isLoading: false,
            dataSource: responseJson,
-         }, function() {
-           // Tutaj możemy zrobić coś po załadowaniu.
-         });
+         })
        })
        .catch((error) => {
          console.error(error);
@@ -49,6 +51,10 @@ export default class SpecificTask extends React.Component {
 
   static navigationOptions = {
     title: 'Wróć',
+    headerStyle: {backgroundColor: '#3399FF'},
+    headerTitleStyle: {color: '#fff'},
+    headerTintColor: '#fff',
+    headerRight: <TouchableHighlight style={{padding:10, margin: 10}}><FontAwesome style={{ color: '#fff', fontSize: 25}}>{Icons.pencil}</FontAwesome></TouchableHighlight>,
     tapBarLabel: 'Zadanie',
     drawerIcon: ({tintColor}) => {
       return(
@@ -69,16 +75,27 @@ export default class SpecificTask extends React.Component {
       );
     }
     return(
-      <View style={styles.container}>
-          <View style={styles.AddTaskContent}>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>ID:</Text> { taskId }</Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Temat: </Text>{ this.state.dataSource.temat }</Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Treść zadania:</Text> { this.state.dataSource.temat }</Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Przydzielono:</Text>{ this.state.dataSource.temat } </Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dnia:</Text> { this.state.dataSource.data }</Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dla:</Text> { this.state.dataSource.temat }</Text>
-              <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Priorytet:</Text>{ this.state.dataSource.temat } </Text>
-          </View>
-      </View>
+      <ScrollView style={styles.container}>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>ID:</Text> { taskId }</Text>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Temat: </Text>{ this.state.dataSource.temat }</Text>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Treść zadania:{"\n"}</Text>{ this.state.dataSource.tresc }</Text>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Przydzielono:</Text>{ this.state.dataSource.od } </Text>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dnia:</Text> { this.state.dataSource.data }</Text>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dla:</Text> { this.state.dataSource.user_id }</Text>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Priorytet:</Text>{ this.state.dataSource.priorytet } </Text>
+            <TouchableHighlight
+              style={styles.addButton}
+              onPress={() => this.props.navigation.navigate('EditTask', {
+                taskId: taskId,
+                taskTitle: taskTitle,
+                taskContent: this.state.dataSource.tresc,
+                taskFrom: this.state.dataSource.od,
+                taskDate: this.state.dataSource.data,
+                taskUserAssigned: this.state.dataSource.user_id,
+                taskPriority: this.state.dataSource.priorytet
+               })}>
+                  <Text style={styles.addButtonSign}><FontAwesome style={{color: '#fff', fontSize: 20}}>{Icons.pencil}</FontAwesome></Text>
+            </TouchableHighlight>
+      </ScrollView>
     )}
 }

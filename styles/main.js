@@ -2,11 +2,11 @@ import { React, StyleSheet } from 'react-native';
 
 
 var colours = {
-  main: '#182825', // Głowny kolor tla
-  second: '#6D8EA0', // Kolor tła w nagowku na gorze.
+  main: '#E4E4E4', // Głowny kolor tla
+  second: '#b0b0b0', // Kolor tła w nagowku na gorze.
   auxiliary: '#AFA98D', // Kolor poboczny
-  fontColour: '#FCFCFC', // Kolor czcionki (przyjmuje kolor poboczny)
-  addButton: '#6D8EA0', // Kolor przycisku dodawania na stronie głownej
+  fontColour: '#000000', // Kolor czcionki (przyjmuje kolor poboczny)
+  addButton: '#3399FF', // Kolor przycisku dodawania na stronie głownej
 
 };
 
@@ -23,6 +23,12 @@ export default styles = StyleSheet.create({
     {
         flex: 1,
         backgroundColor: colours.main,
+    },
+    containerScroll:
+    {
+        flex: 1,
+        backgroundColor: colours.main,
+        height: '100%',
     },
     header:
     {
@@ -60,13 +66,10 @@ export default styles = StyleSheet.create({
     {
         backgroundColor: 'transparent',
         color: colours.fontColour,
-        padding: 15,
-        //borderRadius: 50,
-        borderWidth: 1,
-        borderColor: colours.second,
         width: '80%',
         alignSelf: 'center',
         marginBottom: 10,
+        borderBottomWidth: 1,
     },
     addButton:
     {
@@ -82,11 +85,12 @@ export default styles = StyleSheet.create({
         position: 'absolute',
         bottom: 25,
         right: 25,
+        elevation: 3,
     },
     addButtonSign:
     {
         alignSelf: 'center',
-        color: colours.fontColour,
+        color: '#fff',
         fontSize: 40,
         fontWeight: '100',
         shadowOffset: {width: 25, height: 25},
@@ -178,13 +182,11 @@ export default styles = StyleSheet.create({
     {
         backgroundColor: 'transparent',
         color: colours.fontColour,
-        padding: 15,
-        borderWidth: 1,
-        borderColor: colours.second,
         width: '80%',
         height: 100,
         alignSelf: 'center',
         marginBottom: 10,
+        borderBottomWidth: 1,
     },
     addTaskPicker:
     {
@@ -192,6 +194,8 @@ export default styles = StyleSheet.create({
         color: colours.fontColour,
         padding: 10,
         borderWidth: 1,
+        borderRadius: 5,
+        elevation: 2,
         borderColor: colours.second,
         alignSelf: 'center',
     },
@@ -202,15 +206,14 @@ export default styles = StyleSheet.create({
     addTaskButton:
     {
         padding: 15,
-        backgroundColor: 'transparent',
+        backgroundColor: colours.addButton,
         width: '80%',
-        borderWidth: 3,
-        borderColor: colours.second,
         alignSelf: 'center',
+        elevation: 2,
     },
     addTaskButtonText:
     {
-        color: colours.fontColour,
+        color: 'white',
         textAlign: 'center',
         fontSize: 18,
     },
@@ -222,11 +225,15 @@ export default styles = StyleSheet.create({
     {
         flex: 1,
         padding: 12,
+        width: '85%',
+        alignSelf: 'center',
         flexDirection: 'row',
-        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderRadius: 5,
         borderWidth: 1,
-        borderColor: colours.second,
+        borderColor: 'gray',
         marginBottom: 10,
+        elevation: 2,
     },
     textRow:
     {

@@ -12,6 +12,7 @@ import LongTermTasks from '../screens/LongTermTasks'
 import SpecificTask from '../screens/SpecificTask'
 import CalendarScreen from '../screens/CalendarScreen'
 import AddTaskForm from '../screens/AddTaskForm'
+import EditTask from '../screens/EditTask'
 
 export const Stack = StackNavigator({           // Potrzebujemy zaimplementowac
   'MainActivity': { screen: MainActivity },     //
@@ -22,6 +23,7 @@ export const Stack = StackNavigator({           // Potrzebujemy zaimplementowac
   'FutureTasks': { screen: FutureTasks },
   'LongTermTasks': { screen: LongTermTasks },
   'CalendarScreen': { screen: CalendarScreen },
+  'EditTask': { screen: EditTask }
 }, {
   initialRouteName: 'MainActivity'
 })
@@ -29,6 +31,7 @@ export const Stack = StackNavigator({           // Potrzebujemy zaimplementowac
 export const ActiveTasksStack = StackNavigator({
   'ActiveTasks': { screen: ActiveTasks },
   'SpecificTask': { screen: SpecificTask },
+  'EditTask': { screen: EditTask }
 }, {
   initialRouteName: 'ActiveTasks'
 })
