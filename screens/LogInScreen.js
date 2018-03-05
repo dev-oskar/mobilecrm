@@ -69,11 +69,12 @@ export default class LogInScreen extends React.Component {
                     .then(response => response.json())
                     .then(json => {
                       console.log(json)
-                      if(Object.keys(json).length > 0){
-                        Alert.alert('Zalogowano poprawnie')
-                      }
-                      if(Object.keys(json).length = null){
-                        Alert.alert('Wprowadzono niepoprawne dane')
+                      if(json.status === "1"){
+                        Alert.alert('Witaj ' + json.username + '. Miłego dnia!');
+                        AsyncStorage.setItem('loggedUserId', json.id);
+                        AsyncStorage.setItem('loggedUserName', json.username);
+                      }else{
+                        Alert.alert('Wprowadzono niepoprawne dane!')
                       }
                     })
                   }}

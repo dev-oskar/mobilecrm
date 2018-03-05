@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button, Image, TouchableHighlight, Alert, ActivityIndicator } from 'react-native';
+import { Text, View, Button, Image, TouchableHighlight, Alert, ActivityIndicator, AsyncStorage } from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 import styles from '../styles/main' // Plik opisujacy wyglad poszczegolnych elementow.
@@ -13,6 +13,7 @@ export default class MainActivity extends React.Component {
     this.state = {
       tasksCount: 1,
       isLoading: true,
+      stateUsername: ''
     }
   }
   static navigationOptions = {
@@ -28,6 +29,14 @@ export default class MainActivity extends React.Component {
   }
 
   componentDidMount() {
+    AsyncStorage.getItem('loggedUserName')
+    .then((value) => {
+      if(value !== null){
+      this.setState({'stateUsername': value})
+    }else{this.setState({'stateUsername': 'DUPA'})}
+    })
+    .done();
+
     return fetch('http://crm.veeo.eu/json/zadania')
       .then((response) => {
         this.setState({
@@ -39,16 +48,18 @@ export default class MainActivity extends React.Component {
       .then((responseJson) => {
         return responseJson;
         console.log(tasksCount)
+        Alert.alert("dupa : " + this.state.stateUsername)
+
       })
       .catch((error) => {
         console.error(error);
-      });
+      })
+      .done();
   }
 
   render(){
-    const name = 'Oskar'
+    const userName = this.state.stateUsername
     const { navigation } = this.props.navigation;
-
 
     if (this.state.isLoading) {
       return (
@@ -60,7 +71,7 @@ export default class MainActivity extends React.Component {
     return(
     <View style={styles.container}>
         <View style={styles.mainContent}>
-            <Text style={styles.mainHello}>Witaj, { name }</Text>
+            <Text style={styles.mainHello}>Witaj, { userName }</Text>
             <Text style={styles.mainString}>Ilość zadań aktywnych: { this.state.tasksCount }</Text>
             <Text style={styles.mainString}>Ilość zadań wykonanych: 0</Text>
         </View>
