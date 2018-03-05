@@ -13,6 +13,8 @@ export default class LogInScreen extends React.Component {
       apiAddress: '',
       username: '',
       password: '',
+      stateUsername: '',
+      isLoading: true,
     }
   }
 
@@ -27,8 +29,42 @@ export default class LogInScreen extends React.Component {
       )
     }
   }
+
+  componentDidMount() {
+    AsyncStorage.getItem('loggedUserName')
+    .then((value) => {
+      if(value !== null){
+      this.setState({'stateUsername': value, isLoading: false,})
+    }else{ }
+    })
+    .done();
+  }
+
   render(){
-    return(
+    // Jeśli użytkownik nie jest zalogowany, wyswietl:
+    if(this.state.stateUsername !== ''){
+      return(
+        <View style={styles.container}>
+          <View style={styles.contentLoggedOut}>
+              <View style={{width: '80%', alignSelf: 'center'}}>
+              <Text style={styles.descLoggedOut}>Jesteś już zalogowany, <Text style={{fontSize: 25}}>{ this.state.stateUsername }</Text>.{"\n"}<Text style={{fontSize: 15,}}>Czy chcesz się wylogować?</Text></Text>
+              </View>
+              <TouchableHighlight
+                style={styles.addTaskButton}
+                onPress={
+                () => {
+                  AsyncStorage.removeItem('loggedUserName')
+                  Alert.alert("Wylogowano pomyślnie")
+                }
+              } >
+                <Text style={styles.addTaskButtonText}>Wyloguj</Text>
+              </TouchableHighlight>
+          </View>
+        </View>
+      )
+
+      // Jeśli użytkownik jest zalogowany, wyświetl:
+    }else{return(
       <View style={styles.container}>
           <View style={styles.contentLogIn}>
               <View style={{width: '80%', alignSelf: 'center'}}>
@@ -83,6 +119,6 @@ export default class LogInScreen extends React.Component {
               </TouchableHighlight>
           </View>
       </View>
-    )
+    )}
   }
 }

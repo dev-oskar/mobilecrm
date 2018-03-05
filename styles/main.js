@@ -156,6 +156,20 @@ export default styles = StyleSheet.create({
         fontWeight: '500',
         marginBottom: 5,
     },
+    contentLoggedOut:
+    {
+        position: 'absolute',
+        bottom: '50%',
+        alignSelf: 'center',
+        width: '100%',
+    },
+    descLoggedOut:
+    {
+        fontSize: 22,
+        color: colours.fontColour,
+        fontWeight: 'bold',
+        marginBottom: 15,
+    },
 
     /* Sekcja LogIn Koniec */
 

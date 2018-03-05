@@ -33,7 +33,7 @@ export default class MainActivity extends React.Component {
     .then((value) => {
       if(value !== null){
       this.setState({'stateUsername': value})
-    }else{this.setState({'stateUsername': 'DUPA'})}
+    }else{ }
     })
     .done();
 
@@ -68,6 +68,19 @@ export default class MainActivity extends React.Component {
         </View>
       );
     }
+    else if(this.state.stateUsername === ''){
+      return(
+        <View style={styles.container}>
+            <View style={styles.mainContent}>
+                <Text style={styles.mainHello}>Wygląda na to, że nie jesteś zalogowany. :(</Text>
+                <Text style={styles.mainString}>Znaczna część funkcji będzie niedostępna dopóki tego nie zrobisz.
+                  W tym celu otwórz panel przesuwając palcem od prawej krawędzi do środka a następnie wybierz odpowiednią pozycję.
+                  </Text>
+            </View>
+        </View>
+      )
+    }
+
     return(
     <View style={styles.container}>
         <View style={styles.mainContent}>
