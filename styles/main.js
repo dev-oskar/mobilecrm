@@ -1,4 +1,4 @@
-import { React, StyleSheet } from 'react-native';
+import { React, StyleSheet, Dimensions } from 'react-native';
 
 
 var colours = {
@@ -81,7 +81,6 @@ export default styles = StyleSheet.create({
         backgroundColor: colours.addButton,
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1,
         position: 'absolute',
         bottom: 25,
         right: 25,
@@ -93,9 +92,6 @@ export default styles = StyleSheet.create({
         color: '#fff',
         fontSize: 40,
         fontWeight: '100',
-        shadowOffset: {width: 25, height: 25},
-        shadowColor: colours.fontColour,
-        shadowOpacity: 300,
     },
     /* Sekcja APIAddress Start */
 
@@ -103,9 +99,46 @@ export default styles = StyleSheet.create({
     {
         position: 'absolute',
         bottom: 100,
-        width: '100%'
+        width: '100%',
+        alignSelf: 'center'
     },
-
+    apiButtonContainer:
+    {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignSelf: 'center',
+        width: '80%'
+    },
+    apiButtonLoad:
+    {
+        backgroundColor: colours.addButton,
+        width: '49%',
+        padding: 5,
+        elevation: 2,
+    },
+    apiButtonReset:
+    {
+        backgroundColor: 'red',
+        width: '49%',
+        padding: 5,
+        elevation: 2,
+    },
+    apiButtonLabel:
+    {
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
+    buttonLabel:
+    {
+        fontSize: 10,
+        color: '#b0b0b0',
+        fontWeight: '500',
+        width: '50%',
+        textAlign: 'center'
+    },
     /* Sekcja APIAddress Koniec */
 
     /* Sekcja LogIn Start */
@@ -119,9 +152,8 @@ export default styles = StyleSheet.create({
     descLogIn:
     {
         fontSize: 10,
-        color: colours.fontColour,
+        color: colours.addButton,
         fontWeight: '500',
-        alignSelf: 'center',
         marginBottom: 5,
     },
 
@@ -225,7 +257,7 @@ export default styles = StyleSheet.create({
     {
         flex: 1,
         padding: 12,
-        width: '85%',
+        width: '95%',
         alignSelf: 'center',
         flexDirection: 'row',
         backgroundColor: '#fff',
@@ -256,6 +288,22 @@ export default styles = StyleSheet.create({
     {
         fontSize: 16,
         color: colours.second,
-    }
+    },
+    floatButton:
+    {
+        width: 80,
+        height: 80,
+        borderRadius: 100/2,
+        borderWidth: 1,
+        borderColor: colours.auxiliary,
+        backgroundColor: colours.addButton,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 25,
+        right: 25,
+        elevation: 3,
+        zIndex: 100,
+    },
     /* Sekcja Row Koniec*/
 });

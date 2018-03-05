@@ -15,13 +15,6 @@ export default class SpecificTask extends React.Component {
     super(props);
     this.state = {
       isLoading: true, // Wartość ta ustawiona na true pozwala nam wykonać jakieś działanie podczas ładowania danych.
-      userAssigned: 'Dla kogo:', // Użytkownik przydzielony do zadania
-      priority: '1', // Priorytet zadania
-      date: '',
-      data: '',
-      title: '',
-      taskContent: '',
-      companyAssigned: '',
       dataSource: '',
     }
   }
@@ -49,19 +42,22 @@ export default class SpecificTask extends React.Component {
        });
    }
 
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) => ({
     title: 'Wróć',
+    // headerRight: <TouchableHighlight onPress={() => navigation.navigate('EditTask', {
+    //     taskID: navigation.state.params.taskId,
+    //     taskTitle: navigation.state.params.taskTitle
+    // })} style={{padding:10, margin: 10}}><FontAwesome style={{ color: '#fff', fontSize: 25}}>{Icons.pencil}</FontAwesome></TouchableHighlight>,
     headerStyle: {backgroundColor: '#3399FF'},
     headerTitleStyle: {color: '#fff'},
     headerTintColor: '#fff',
-    headerRight: <TouchableHighlight style={{padding:10, margin: 10}}><FontAwesome style={{ color: '#fff', fontSize: 25}}>{Icons.pencil}</FontAwesome></TouchableHighlight>,
     tapBarLabel: 'Zadanie',
     drawerIcon: ({tintColor}) => {
       return(
         <FontAwesome style={{color: tintColor, fontSize: 20}}>{Icons.check}</FontAwesome>
       )
     }
-  }
+  })
   render(){
     const { navigation } = this.props.navigation;
     const taskId = this.props.navigation.state.params.taskId; // id zadania
@@ -79,17 +75,17 @@ export default class SpecificTask extends React.Component {
             <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>ID:</Text> { taskId }</Text>
             <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Temat: </Text>{ this.state.dataSource.temat }</Text>
             <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Treść zadania:{"\n"}</Text>{ this.state.dataSource.tresc }</Text>
-            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Przydzielono:</Text>{ this.state.dataSource.od } </Text>
+            <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Przydzielono:</Text>{ this.state.dataSource.firma_id } </Text>
             <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dnia:</Text> { this.state.dataSource.data }</Text>
             <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Dla:</Text> { this.state.dataSource.user_id }</Text>
             <Text style={styles.specificTaskText}><Text style={styles.specificTaskCategory}>Priorytet:</Text>{ this.state.dataSource.priorytet } </Text>
             <TouchableHighlight
-              style={styles.addButton}
+              style={styles.floatButton}
               onPress={() => this.props.navigation.navigate('EditTask', {
                 taskId: taskId,
                 taskTitle: taskTitle,
                 taskContent: this.state.dataSource.tresc,
-                taskFrom: this.state.dataSource.od,
+                taskFrom: this.state.dataSource.firma_id,
                 taskDate: this.state.dataSource.data,
                 taskUserAssigned: this.state.dataSource.user_id,
                 taskPriority: this.state.dataSource.priorytet

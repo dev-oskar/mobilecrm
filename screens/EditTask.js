@@ -7,6 +7,8 @@ import styles from '../styles/main' // Plik opisujacy wyglad poszczegolnych elem
 
 export default class AddTaskForm extends React.Component {
 
+
+
   constructor(props) // Ta linia odpowiada za przechowywanie zmiennych. Puste stringi oznaczają możliwość dowolnego wyboru. Jeśli wrzucilibyśmy do userAssigned
   {                   //  np "Oskar", to ta wartość została by domyślnie wyświetlona.
     super(props);
@@ -31,8 +33,6 @@ export default class AddTaskForm extends React.Component {
          this.setState({
            isLoading: false,
            dataSource: responseJson
-         }, function() {
-           // Tutaj możemy zrobić coś po załadowaniu.
          });
        })
        .catch((error) => {
@@ -61,9 +61,6 @@ export default class AddTaskForm extends React.Component {
   const taskDate = this.props.navigation.state.params.taskDate;
   const taskUserAssigned = this.props.navigation.state.params.taskUserAssigned;
   const taskPriority = this.props.navigation.state.params.taskPriority;
-
-
-
 
     if(this.state.isLoading){
       return(
@@ -101,6 +98,7 @@ export default class AddTaskForm extends React.Component {
                   autoCapitalize={'none'}
                   onChangeText={(companyAssigned) => this.setState({companyAssigned: companyAssigned})}
                   underlineColorAndroid={'transparent'}
+                  defaultValue={ taskFrom }
               />
               <View style={{backgroundColor: 'transparent', borderBottomWidth: 1, width: '80%', alignSelf: 'center', marginBottom: 10,}}>
                   <Picker
@@ -119,7 +117,7 @@ export default class AddTaskForm extends React.Component {
                       date={ taskDate }
                       mode='date'
                       placeholder='Wybierz datę'
-                      format='DD-MM-YYYY'
+                      format='YYYY-MM-DD'
                       confirmBtnText='Wybierz'
                       cancelBtnText='Anuluj'
                       customStyles={{
@@ -161,28 +159,30 @@ export default class AddTaskForm extends React.Component {
                     userAssigned: this.state.userAssigned
                 }
 
-                fetch('https://crm.veeo.eu/json/zapiszzadanie', {
+                fetch('https://crm.veeo.eu/json/', {
                   method: 'POST',
-                  body: JSON.stringify(body),
-                  headers: {
-                    // "Content-type": "application/json"
-                  }
+                  body: JSON.stringify({
+                    taskId: taskId,
+                    myId: '10',
+                    action: "edit",
+                    body: body,
+                  }),
                 })
                 .then(response => response.json())
                 .then(json => console.log(json))
                 Alert.alert(
                   'Status',
-                  'Dodawanie zadania powiodło się!',
+                  'Edycja zakończona!',
                   [
                     {text: 'Wróć', onPress: () => {
                       console.log('Back was pressed');
-                      this.props.navigation.navigate('MainActivity');
+                      this.props.navigation.goBack();
                     }},
-                    {text: 'Przejdź do tego zadania', onPress: () => Alert.alert('Ta funkcja jest jeszcze niedostępna. Przepraszamy.')}
+                    {text: 'Przejdź do listy zadań', onPress: () => this.props.navigation.navigate('ActiveTasks')}
                   ],
                 )
               }}>
-                  <Text style={styles.addTaskButtonText}>Zapisz <FontAwesome style={{color: '#fff', fontSize: 18}}>{Icons.pencil}</FontAwesome></Text>
+                  <Text style={styles.addTaskButtonText}>Zapisz <FontAwesome style={{color: '#fff', fontSize: 18}}>{Icons.save}</FontAwesome></Text>
               </TouchableHighlight>
           </View>
       </View>

@@ -107,7 +107,7 @@ export default class AddTaskForm extends React.Component {
                       date={this.state.date}
                       mode='date'
                       placeholder='Wybierz datę'
-                      format='DD-MM-YYYY'
+                      format='YYYY-MM-DD'
                       confirmBtnText='Wybierz'
                       cancelBtnText='Anuluj'
                       customStyles={{
@@ -141,6 +141,8 @@ export default class AddTaskForm extends React.Component {
               </View>
               <TouchableHighlight style={styles.addTaskButton} onPress={() => {
                 var body={
+                    action: "insert",
+                    myId: '10',
                     title: this.state.title,
                     taskContent: this.state.taskContent,
                     companyAssigned: this.state.companyAssigned,
@@ -149,7 +151,7 @@ export default class AddTaskForm extends React.Component {
                     userAssigned: this.state.userAssigned
                 }
 
-                fetch('https://crm.veeo.eu/json/zapiszzadanie', {
+                fetch('https://crm.veeo.eu/json', {
                   method: 'POST',
                   body: JSON.stringify(body),
                   headers: {
@@ -164,9 +166,9 @@ export default class AddTaskForm extends React.Component {
                   [
                     {text: 'Wróć', onPress: () => {
                       console.log('Back was pressed');
-                      this.props.navigation.navigate('MainActivity');
+                      this.props.navigation.goBack();
                     }},
-                    {text: 'Przejdź do tego zadania', onPress: () => Alert.alert('Ta funkcja jest jeszcze niedostępna. Przepraszamy.')}
+                    {text: 'Przejdź do listy zadań', onPress: () => this.props.navigation.navigate('ActiveTasks')}
                   ],
                 )
               }}>

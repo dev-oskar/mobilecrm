@@ -36,10 +36,17 @@ export const ActiveTasksStack = StackNavigator({
   initialRouteName: 'ActiveTasks'
 })
 
+export const LogInActivity = StackNavigator({
+  'LogInScreen': { screen: LogInScreen },
+  'MainActivity': { screen: MainActivity }
+}, {
+  initialRouteName: 'LogInScreen'
+})
+
 export const Drawer = DrawerNavigator({
   'Główna': { screen: Stack },
   'Adres API': { screen: APIAddress },
-  'Logowanie': { screen: LogInScreen },
+  'Logowanie': { screen: LogInActivity },
   'Aktywne zadania': { screen: ActiveTasksStack },
   'Wykonane zadania': { screen: TasksPerformed },
   'Przyszłe zadania': { screen: FutureTasks },

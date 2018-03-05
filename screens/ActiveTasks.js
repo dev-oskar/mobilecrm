@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button, Image, ActivityIndicator, ListView, TouchableHighlight } from 'react-native';
+import { Text, View, Button, Image, ActivityIndicator, ListView, TouchableHighlight, RefreshControl } from 'react-native';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
 import { StackNavigator } from 'react-navigation';
 
@@ -12,7 +12,8 @@ export default class ActiveTasks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      refreshing: false,
     }
   }
   static navigationOptions = {
@@ -28,6 +29,25 @@ export default class ActiveTasks extends React.Component {
     title: 'Do wykonania',
   }
 
+  _onRefresh(){
+    this.setState({refreshing: true});
+    fetch('http://crm.veeo.eu/json/zadania')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson),
+        });
+      })
+      .then(() => {
+      this.setState({refreshing: false});
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
+
   componentDidMount() {
     return fetch('http://crm.veeo.eu/json/zadania')
       .then((response) => response.json())
@@ -36,8 +56,6 @@ export default class ActiveTasks extends React.Component {
         this.setState({
           isLoading: false,
           dataSource: ds.cloneWithRows(responseJson),
-        }, function() {
-          // Zrob cos z nowym stanem.
         });
       })
       .catch((error) => {
@@ -65,8 +83,12 @@ export default class ActiveTasks extends React.Component {
                 <Text style={styles.textRow}>{rowData.temat}{"\n"}<Text style={{color: 'lightslategrey'}}>{rowData.data}</Text></Text>
             </TouchableHighlight>
           }
-          // renderSeparator={(sectionId, rowId) => <View style={styles.separator}></View>}
-          // renderHeader={() => <Header />}
+          refreshControl={
+            <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh.bind(this)}
+            />
+          }
         />
     );
   }
